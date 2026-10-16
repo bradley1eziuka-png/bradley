@@ -1,0 +1,90 @@
+{
+  "business": {
+    "name": "Bradley Interior Painting",
+    "legalName": "Bradley Interior Painting LLC",
+    "shortName": "Bradley Interior Painting",
+    "phone": "(269) 547-3775",
+    "email": "bradleyinteriorpainting@gmail.com",
+    "address": { "street": "", "city": "Kalamazoo", "state": "MI", "zip": "" },
+    "serviceAreas": ["Kalamazoo, MI"],
+    "hours": [{ "days": "Business hours", "hours": "8:00 AM – 4:00 PM" }],
+    "social": {
+      "facebook": "https://www.facebook.com/Bradleyinteriorpainting",
+      "instagram": "https://www.instagram.com/bradley_interior_paintingllc_/",
+      "google": "",
+      "yelp": "",
+      "nextdoor": "",
+      "youtube": ""
+    }
+  },
+  "branding": {
+    "logo": {
+      "src": "/logo.png",
+      "navSrc": "/logo-nav.png",
+      "alt": "Bradley Interior Painting logo"
+    },
+    "favicon": "/favicon.png",
+    "colors": {},
+    "images": {}
+  },
+  "services": {
+    "enabled": ["interior", "exterior", "drywallHanging", "drywallPatching", "drywallFinishing"],
+    "overrides": {}
+  },
+  "content": {
+    "hero": {
+      "eyebrow": "Professional Painting Services in Kalamazoo, MI",
+      "headline": "Bradley Interior Painting",
+      "tagline": "Beautiful Finishes. Lasting Impressions.",
+      "subheadline": "Professional interior and exterior painting, drywall installation, and drywall repair services in Kalamazoo, Michigan. Family-oriented service, quality workmanship, and free estimates."
+    },
+    "about": {
+      "eyebrow": "About Us",
+      "title": "A Family-Oriented Painting Company in Kalamazoo",
+      "body": "Bradley Interior Painting is a family-oriented painting company serving Kalamazoo, Michigan. We take pride in professional workmanship, dependable service, and beautiful results. From interior and exterior painting to drywall hanging, patching, and finishing, we pay attention to the details and our goal is simple: to make every customer happy with the finished work. We're fully insured, and we offer free estimates and free one-year touch-ups.",
+      "badgeTitle": "Family-Oriented",
+      "badgeText": "professional painters"
+    },
+    "faqs": [
+      {
+        "q": "Do you offer free estimates?",
+        "a": "Yes. You can request a free estimate using the form on this page or by calling (269) 547-3775. Share a few details about your project and we'll take it from there."
+      },
+      {
+        "q": "Are you insured?",
+        "a": "Yes, Bradley Interior Painting is fully insured. If you'd like to talk about insurance for your project, just ask when you request your estimate."
+      },
+      {
+        "q": "Do you offer touch-ups after the job is done?",
+        "a": "We offer free touch-ups for one year. Ask us about the details when you request your estimate."
+      },
+      {
+        "q": "What services do you offer?",
+        "a": "We provide interior painting, exterior painting, drywall hanging, drywall patching, and drywall finishing for homes in Kalamazoo, Michigan."
+      },
+      {
+        "q": "Can you repair drywall before painting?",
+        "a": "Yes. Drywall patching and finishing are part of what we do, so repairs and painting can be handled together as one project."
+      }
+    ],
+    "footerBlurb": "A family-oriented painting company serving Kalamazoo, Michigan. Interior and exterior painting, drywall hanging, patching, and finishing. Fully insured, with free estimates and free one-year touch-ups.",
+    "finalCta": {
+      "title": "Ready to Give Your Home a Fresh New Look?",
+      "body": "Whether it's one room, a repair, or a full exterior, the first step is a free estimate and a conversation."
+    },
+    "testimonials": []
+  },
+  "seo": {
+    "siteUrl": "",
+    "title": "Bradley Interior Painting | Painters & Drywall Services in Kalamazoo, MI",
+    "description": "Family-oriented painters in Kalamazoo, MI. Interior and exterior painting, drywall hanging, patching, and finishing. Fully insured, with free estimates and free one-year touch-ups.",
+    "ogImage": "",
+    "locale": "en_US"
+  },
+  "form": {
+    "provider": "demo",
+    "formspreeId": "",
+    "webhookUrl": "",
+    "showDemoNotice": true
+  }
+}
