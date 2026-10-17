@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 
 import { COPY } from "@/lib/site-config";
-import { IMAGES } from "@/lib/site-images";
+import { WORK_IMAGES } from "@/lib/work-media";
 import { SectionHeading } from "./section-heading";
 import { ctaButton } from "./buttons";
 
@@ -12,9 +12,12 @@ export function Trust() {
         <div className="relative">
           <div className="overflow-hidden rounded-3xl border border-border shadow-[0_30px_60px_-30px_rgba(0,0,0,0.35)]">
             <img
-              src={IMAGES.trust}
-              alt="A professional painter carefully painting trim by hand in a bright residential interior"
+              src={WORK_IMAGES.doorTrim.card}
+              alt={WORK_IMAGES.doorTrim.alt}
+              width={599}
+              height={449}
               loading="lazy"
+              decoding="async"
               className="aspect-[4/3] w-full object-cover"
             />
           </div>

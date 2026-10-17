@@ -168,7 +168,10 @@ export function ServicePage({ service }: { service: ServiceConfig }) {
           <SectionHeading
             eyebrow="Our Work"
             title="See the Difference a Fresh Coat Can Make"
-            description="Illustrative examples of the colors, finishes, and transformations that make professional painting so impactful."
+            description={
+              service.galleryDescription ??
+              "Illustrative examples of the colors, finishes, and transformations that make professional painting so impactful."
+            }
           />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:gap-8">
             {service.gallery.map((item) => (
@@ -190,9 +193,11 @@ export function ServicePage({ service }: { service: ServiceConfig }) {
               </figure>
             ))}
           </div>
-          <p className="mt-10 text-center text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/70">
-            Illustrative examples of painting finishes
-          </p>
+          {service.galleryNote !== "" && (
+            <p className="mt-10 text-center text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/70">
+              {service.galleryNote ?? "Illustrative examples of painting finishes"}
+            </p>
+          )}
         </div>
       </section>
 

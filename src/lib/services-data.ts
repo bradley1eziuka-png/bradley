@@ -13,11 +13,19 @@
 
 import { siteConfig, type ServiceKey } from "@/config";
 import { IMAGES } from "./site-images";
+import { WORK_IMAGES, type WorkImage } from "./work-media";
 
 export type ServiceStep = { number: string; title: string; description: string };
 export type ServiceBenefit = { title: string; description: string };
 export type ServiceFaq = { q: string; a: string };
 export type GalleryItem = { src: string; alt: string; label: string };
+
+// Gallery entry from a real owner-supplied photo (4:3 crop where available).
+const real = (img: WorkImage): GalleryItem => ({
+  src: img.card ?? img.src,
+  alt: img.alt,
+  label: img.label,
+});
 
 export interface ServiceConfig {
   slug: string;
@@ -34,6 +42,10 @@ export interface ServiceConfig {
   faqs: ServiceFaq[];
   heroImage: string;
   heroAlt: string;
+  // Gallery heading text and the small caption under it. Empty note = no caption
+  // (used when every gallery image is a real project photo).
+  galleryDescription?: string;
+  galleryNote?: string;
 }
 
 // The same simple, universal three-step path applies to every service.
@@ -89,26 +101,10 @@ const BASE_SERVICES = {
     ],
     process: SHARED_PROCESS,
     gallery: [
-      {
-        src: IMAGES.galleryLivingRoom,
-        alt: "An elegant living room with sophisticated painted walls in warm neutral tones",
-        label: "Living Room",
-      },
-      {
-        src: IMAGES.galleryKitchen,
-        alt: "A modern kitchen with freshly painted walls in a bright, inviting space",
-        label: "Kitchen",
-      },
-      {
-        src: IMAGES.galleryBedroom,
-        alt: "A serene bedroom with freshly painted soft neutral walls and layered textures",
-        label: "Bedroom",
-      },
-      {
-        src: IMAGES.galleryTrim,
-        alt: "Detailed trim work showing crisp white baseboards and crown molding",
-        label: "Trim & Detail",
-      },
+      real(WORK_IMAGES.doorTrim),
+      real(WORK_IMAGES.platformTrim),
+      real(WORK_IMAGES.hallwayCeiling),
+      real(WORK_IMAGES.brightRoomCeiling),
     ],
     faqs: [
       {
@@ -120,9 +116,11 @@ const BASE_SERVICES = {
         a: "Timelines depend on the size and scope of the project. We'll walk through expected timing with you before any work begins.",
       },
     ],
-    heroImage: IMAGES.interior,
-    heroAlt:
-      "A bright, freshly painted living room with smooth, warm neutral walls and natural light",
+    galleryDescription:
+      "A look at interior painting by our crew: ceilings, trim, and carefully prepared rooms.",
+    galleryNote: "",
+    heroImage: WORK_IMAGES.brightRoomCeiling.card ?? WORK_IMAGES.brightRoomCeiling.src,
+    heroAlt: WORK_IMAGES.brightRoomCeiling.alt,
   },
 
   exterior: {
@@ -156,26 +154,10 @@ const BASE_SERVICES = {
     ],
     process: SHARED_PROCESS,
     gallery: [
-      {
-        src: IMAGES.galleryExterior,
-        alt: "A craftsman style home with freshly painted exterior siding and crisp white trim",
-        label: "Home Exterior",
-      },
-      {
-        src: IMAGES.exterior,
-        alt: "A charming residential home with a freshly painted exterior and clean trim lines",
-        label: "Fresh Exterior",
-      },
-      {
-        src: IMAGES.galleryTrim,
-        alt: "Close-up of crisp exterior trim detailing around windows and doors",
-        label: "Exterior Trim",
-      },
-      {
-        src: IMAGES.trust,
-        alt: "A professional painter carefully refinishing exterior trim by hand",
-        label: "Careful Prep",
-      },
+      real(WORK_IMAGES.porchCeiling),
+      real(WORK_IMAGES.windowLadder),
+      real(WORK_IMAGES.stuccoPrep),
+      real(WORK_IMAGES.blueHouse),
     ],
     faqs: [
       {
@@ -187,9 +169,11 @@ const BASE_SERVICES = {
         a: "We'll handle cleaning and preparation as part of the process. Just let us know about any specific concerns upfront so they can be addressed.",
       },
     ],
-    heroImage: IMAGES.exterior,
-    heroAlt:
-      "A charming residential home with freshly painted exterior siding and crisp white trim",
+    galleryDescription:
+      "A look at exterior painting by our crew: siding, porches, window trim, and surface preparation.",
+    galleryNote: "",
+    heroImage: WORK_IMAGES.blueHouse.card ?? WORK_IMAGES.blueHouse.src,
+    heroAlt: WORK_IMAGES.blueHouse.alt,
   },
 
   drywallHanging: {
@@ -229,16 +213,8 @@ const BASE_SERVICES = {
         alt: "Illustrative image of a finished living room with smooth interior walls",
         label: "Smooth Walls",
       },
-      {
-        src: IMAGES.galleryBedroom,
-        alt: "Illustrative image of a bedroom with clean, finished interior walls",
-        label: "Finished Rooms",
-      },
-      {
-        src: IMAGES.galleryTrim,
-        alt: "Illustrative image of crisp trim and baseboards along finished walls",
-        label: "Clean Lines",
-      },
+      real(WORK_IMAGES.hangingPanels),
+      real(WORK_IMAGES.hangingWall),
       {
         src: IMAGES.trust,
         alt: "Illustrative image of a painter carefully working by hand",
@@ -255,8 +231,11 @@ const BASE_SERVICES = {
         a: "Yes. We offer drywall finishing and interior painting as well, so the whole project can be handled together.",
       },
     ],
-    heroImage: IMAGES.galleryLivingRoom,
-    heroAlt: "Illustrative image of a finished living room with smooth interior walls",
+    galleryDescription:
+      "Illustrative examples of the smooth, even finishes that careful drywall work and painting can leave behind.",
+    galleryNote: "Illustrative stock imagery, not Bradley Interior Painting projects",
+    heroImage: WORK_IMAGES.hangingWall.src,
+    heroAlt: WORK_IMAGES.hangingWall.alt,
   },
 
   drywallPatching: {
@@ -295,16 +274,8 @@ const BASE_SERVICES = {
         alt: "Illustrative image of a living room with smooth, even interior walls",
         label: "Smooth Walls",
       },
-      {
-        src: IMAGES.galleryKitchen,
-        alt: "Illustrative image of a bright room with clean, freshly painted walls",
-        label: "Fresh Finish",
-      },
-      {
-        src: IMAGES.galleryBedroom,
-        alt: "Illustrative image of a bedroom with soft, evenly painted walls",
-        label: "Even Surfaces",
-      },
+      real(WORK_IMAGES.crackedCeiling),
+      real(WORK_IMAGES.patchingHand),
       {
         src: IMAGES.galleryTrim,
         alt: "Illustrative image of crisp trim meeting a clean wall",
@@ -321,8 +292,12 @@ const BASE_SERVICES = {
         a: "Our goal is a repair that blends into the wall. Drywall patching, finishing, and painting all come from one team so the result looks consistent.",
       },
     ],
-    heroImage: IMAGES.galleryBedroom,
-    heroAlt: "Illustrative image of a bedroom with soft, evenly painted walls",
+    galleryDescription:
+      "Examples of the smooth, even finishes that careful drywall repair and painting can leave behind.",
+    galleryNote:
+      "Illustrative stock imagery, except the cracked-ceiling photo supplied by Bradley Interior Painting",
+    heroImage: WORK_IMAGES.patchingHand.src,
+    heroAlt: WORK_IMAGES.patchingHand.alt,
   },
 
   drywallFinishing: {
@@ -361,16 +336,8 @@ const BASE_SERVICES = {
         alt: "Illustrative image of a living room with smooth, finished walls",
         label: "Smooth Finish",
       },
-      {
-        src: IMAGES.galleryKitchen,
-        alt: "Illustrative image of a bright kitchen with clean, painted walls",
-        label: "Bright Spaces",
-      },
-      {
-        src: IMAGES.galleryBedroom,
-        alt: "Illustrative image of a bedroom with evenly finished walls",
-        label: "Even Walls",
-      },
+      real(WORK_IMAGES.finishingRoom),
+      real(WORK_IMAGES.finishingDetail),
       {
         src: IMAGES.trust,
         alt: "Illustrative image of a painter carefully finishing a surface by hand",
@@ -387,8 +354,11 @@ const BASE_SERVICES = {
         a: "Yes. Interior painting is one of our core services, so the same company can take your project from finishing through the final coat.",
       },
     ],
-    heroImage: IMAGES.galleryKitchen,
-    heroAlt: "Illustrative image of a bright kitchen with clean, painted walls",
+    galleryDescription:
+      "Illustrative examples of the smooth, even finishes that careful drywall work and painting can leave behind.",
+    galleryNote: "Illustrative stock imagery, not Bradley Interior Painting projects",
+    heroImage: WORK_IMAGES.finishingDetail.src,
+    heroAlt: WORK_IMAGES.finishingDetail.alt,
   },
 } satisfies Record<string, ServiceConfig>;
 
