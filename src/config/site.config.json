@@ -75,15 +75,15 @@
     "testimonials": []
   },
   "seo": {
-    "siteUrl": "",
+    "siteUrl": "https://www.bradleyintpainting.com",
     "title": "Bradley Interior Painting | Painters & Drywall Services in Kalamazoo, MI",
     "description": "Family-oriented painters in Kalamazoo, MI. Interior and exterior painting, drywall hanging, patching, and finishing. Fully insured, with free estimates and free one-year touch-ups.",
     "ogImage": "",
     "locale": "en_US"
   },
   "form": {
-    "provider": "demo",
-    "formspreeId": "",
+    "provider": "formspree",
+    "formspreeId": "mdeajnzb",
     "webhookUrl": "",
     "showDemoNotice": true
   }

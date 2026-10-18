@@ -179,7 +179,18 @@ export function Footer() {
           <p className="text-center text-xs text-white/55 sm:text-left">
             © {year} {BUSINESS_LEGAL_NAME}. All rights reserved.
           </p>
-          <p className="text-xs text-white/55">Painting &amp; Drywall Services in Kalamazoo, MI</p>
+          <p className="flex flex-wrap items-center justify-center gap-x-2 text-xs text-white/55">
+            <span>Painting &amp; Drywall Services in Kalamazoo, MI</span>
+            <span aria-hidden="true">·</span>
+            <a
+              href="https://getarclo.com"
+              target="_blank"
+              rel="noopener"
+              className="transition-colors hover:text-accent"
+            >
+              Website by Arclo
+            </a>
+          </p>
         </div>
       </div>
     </footer>

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Info, Phone } from "lucide-react";
 
-import { FORM_IS_DEMO, submitEstimate } from "@/lib/form-submit";
+import { FORM_ACTION_URL, FORM_IS_DEMO, FORM_SUBJECT, submitEstimate } from "@/lib/form-submit";
 import { siteConfig } from "@/config";
 import { BUSINESS_PHONE, BUSINESS_PHONE_TEL } from "@/lib/site-config";
 import { SERVICE_LIST } from "@/lib/services-data";
@@ -12,11 +12,13 @@ const SERVICE_OPTIONS = [...SERVICE_LIST.map((s) => s.title), "Other Project"];
 type Values = {
   name: string;
   phone: string;
+  cityZip: string;
+  email: string;
   service: string;
   details: string;
 };
 
-const EMPTY: Values = { name: "", phone: "", service: "", details: "" };
+const EMPTY: Values = { name: "", phone: "", cityZip: "", email: "", service: "", details: "" };
 
 // Premium white estimate form card. Used in the hero on the homepage.
 // Delivery is handled by src/lib/form-submit.ts (Formspree, GHL webhook, or
@@ -27,7 +29,6 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "demo" | "error">(
     "idle",
   );
-  const [honeypot, setHoneypot] = useState("");
 
   function update<K extends keyof Values>(key: K, value: string) {
     setValues((v) => ({ ...v, [key]: value }));
@@ -39,6 +40,9 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
     if (values.name.trim().length < 2) next.name = "Please enter your first name.";
     if (values.phone.replace(/\D/g, "").length < 7)
       next.phone = "Please enter a valid phone number.";
+    if (values.cityZip.trim().length < 2) next.cityZip = "Please enter your city or ZIP.";
+    if (values.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim()))
+      next.email = "Please enter a valid email address.";
     if (!values.service) next.service = "Please select a service.";
     setErrors(next);
     return Object.keys(next).length === 0;
@@ -48,7 +52,7 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
     e.preventDefault();
     if (!validate()) return;
     setStatus("submitting");
-    const result = await submitEstimate(values, honeypot);
+    const result = await submitEstimate(new FormData(e.currentTarget as HTMLFormElement));
     if (result.status === "success") {
       setStatus("success");
       setValues(EMPTY);
@@ -113,11 +117,10 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
             <CheckCircle2 className="size-8" />
           </span>
           <h3 className="mt-5 font-display text-2xl font-semibold tracking-tight text-primary">
-            Thank You — We'll Be in Touch
+            Thanks — we got your request.
           </h3>
           <p className="mt-3 max-w-sm text-[0.95rem] leading-relaxed text-muted-foreground">
-            Your estimate request has been received. We'll reach out shortly to learn more about
-            your project.
+            We'll reach out within 1 business day.
           </p>
           <p className="mt-6 text-sm text-muted-foreground">
             Need to reach us sooner?{" "}
@@ -134,27 +137,31 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
           </button>
         </div>
       ) : (
-        <form onSubmit={onSubmit} noValidate className="relative space-y-3.5">
+        <form
+          action={FORM_ACTION_URL || undefined}
+          method="POST"
+          onSubmit={onSubmit}
+          noValidate
+          className="relative space-y-3.5"
+        >
+          <input type="hidden" name="_subject" value={FORM_SUBJECT} />
           {/* Honeypot: hidden from people, tempting to bots. */}
-          <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-            <label htmlFor="est-website">Leave this field empty</label>
-            <input
-              id="est-website"
-              type="text"
-              name="website"
-              tabIndex={-1}
-              autoComplete="off"
-              value={honeypot}
-              onChange={(e) => setHoneypot(e.target.value)}
-            />
-          </div>
+          <input
+            type="text"
+            name="_gotcha"
+            style={{ display: "none" }}
+            tabIndex={-1}
+            autoComplete="off"
+          />
           <div>
             <label htmlFor="est-name" className="mb-1.5 block text-sm font-semibold text-primary">
               First Name <span className="text-accent-deep">*</span>
             </label>
             <input
               id="est-name"
+              name="first_name"
               type="text"
+              required
               autoComplete="given-name"
               value={values.name}
               onChange={(e) => update("name", e.target.value)}
@@ -173,7 +180,9 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
             </label>
             <input
               id="est-phone"
+              name="phone"
               type="tel"
+              required
               inputMode="tel"
               autoComplete="tel"
               value={values.phone}
@@ -189,6 +198,51 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
 
           <div>
             <label
+              htmlFor="est-cityzip"
+              className="mb-1.5 block text-sm font-semibold text-primary"
+            >
+              City or ZIP <span className="text-accent-deep">*</span>
+            </label>
+            <input
+              id="est-cityzip"
+              name="city_zip"
+              type="text"
+              required
+              autoComplete="postal-code"
+              value={values.cityZip}
+              onChange={(e) => update("cityZip", e.target.value)}
+              placeholder="Kalamazoo or 49001"
+              className={`${fieldBase} ${errors.cityZip ? fieldErr : fieldOk}`}
+              aria-invalid={!!errors.cityZip}
+            />
+            {errors.cityZip && (
+              <p className="mt-1.5 text-xs font-medium text-destructive">{errors.cityZip}</p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="est-email" className="mb-1.5 block text-sm font-semibold text-primary">
+              Email (optional)
+            </label>
+            <input
+              id="est-email"
+              name="email"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              value={values.email}
+              onChange={(e) => update("email", e.target.value)}
+              placeholder="you@example.com"
+              className={`${fieldBase} ${errors.email ? fieldErr : fieldOk}`}
+              aria-invalid={!!errors.email}
+            />
+            {errors.email && (
+              <p className="mt-1.5 text-xs font-medium text-destructive">{errors.email}</p>
+            )}
+          </div>
+
+          <div>
+            <label
               htmlFor="est-service"
               className="mb-1.5 block text-sm font-semibold text-primary"
             >
@@ -196,6 +250,8 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
             </label>
             <select
               id="est-service"
+              name="project_type"
+              required
               value={values.service}
               onChange={(e) => update("service", e.target.value)}
               className={`${fieldBase} ${errors.service ? fieldErr : fieldOk} cursor-pointer`}
@@ -224,6 +280,7 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
             </label>
             <textarea
               id="est-details"
+              name="message"
               rows={4}
               value={values.details}
               onChange={(e) => update("details", e.target.value)}
@@ -237,16 +294,15 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
             disabled={status === "submitting"}
             className={ctaButton({ variant: "solid", size: "lg" }) + " w-full"}
           >
-            {status === "submitting" ? "Sending…" : "Request My Estimate"}
+            {status === "submitting" ? "Sending..." : "Request My Estimate"}
           </button>
 
           {status === "error" && (
             <p className="text-center text-sm font-medium text-destructive">
-              We couldn't send your request. Please try again or call us at{" "}
+              Something went wrong. Please call us or try again.{" "}
               <a href={BUSINESS_PHONE_TEL} className="underline">
                 {BUSINESS_PHONE}
               </a>
-              .
             </p>
           )}
 

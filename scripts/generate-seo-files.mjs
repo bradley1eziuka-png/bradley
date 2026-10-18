@@ -1,6 +1,9 @@
 // Runs before `npm run build`. Writes public/sitemap.xml and points robots.txt
 // at it, but only when seo.siteUrl is set in site.config.json.
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+// <lastmod> is the date of the latest git commit (stable across rebuilds of the
+// same commit); it falls back to today's date when git history is unavailable.
+import { execSync } from "node:child_process";
+import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -21,18 +24,36 @@ const SERVICE_PATHS = {
   drywallFinishing: "drywall-finishing",
 };
 const paths = ["/", ...config.services.enabled.map((k) => `/services/${SERVICE_PATHS[k]}`)];
+function lastModified() {
+  try {
+    const d = execSync("git log -1 --format=%cs", {
+      cwd: root,
+      stdio: ["ignore", "pipe", "ignore"],
+    })
+      .toString()
+      .trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
+  } catch {
+    // not a git checkout
+  }
+  return new Date().toISOString().slice(0, 10);
+}
+const lastmod = lastModified();
+
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${paths.map((p) => `  <url><loc>${siteUrl}${p === "/" ? "" : p}</loc></url>`).join("\n")}
+${paths
+  .map(
+    (p) =>
+      `  <url>\n    <loc>${siteUrl}${p === "/" ? "" : p}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`,
+  )
+  .join("\n")}
 </urlset>
 `;
 writeFileSync(join(root, "public/sitemap.xml"), xml);
 
-const robotsPath = join(root, "public/robots.txt");
-let robots = existsSync(robotsPath)
-  ? readFileSync(robotsPath, "utf8")
-  : "User-agent: *\nAllow: /\n";
-robots =
-  robots.replace(/\n?Sitemap:.*\n?/g, "\n").trimEnd() + `\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
-writeFileSync(robotsPath, robots);
-console.log(`[seo] wrote sitemap.xml (${paths.length} URLs) for ${siteUrl}`);
+writeFileSync(
+  join(root, "public/robots.txt"),
+  `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`,
+);
+console.log(`[seo] wrote sitemap.xml (${paths.length} URLs) and robots.txt for ${siteUrl}`);
