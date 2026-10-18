@@ -15,6 +15,9 @@ export function Hero() {
         <img
           src={IMAGES.hero}
           alt="A professional painter carefully rolling a fresh coat of paint across a bright living room wall"
+          width={1376}
+          height={768}
+          decoding="async"
           className="h-full w-full object-cover"
           loading="eager"
           fetchPriority="high"
@@ -27,12 +30,11 @@ export function Hero() {
         <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
           {/* Left column ~55% */}
           <div className="max-w-xl">
-            <p className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              {COPY.hero.eyebrow}
-            </p>
-
             <h1 className="font-display text-balance text-5xl font-extrabold leading-[1.05] tracking-tight text-white [word-break:break-word] sm:text-6xl lg:text-[4.5rem]">
+              <span className="mb-6 flex w-fit items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase leading-normal tracking-[0.18em] text-white backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                {COPY.hero.eyebrow}
+              </span>
               {COPY.hero.headline}
             </h1>
 

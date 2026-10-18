@@ -13,7 +13,7 @@ export function Services() {
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="What We Do"
-          title="Painting & Drywall Services for Your Home"
+          title="Painting & Drywall Services in Kalamazoo"
           description="Interior and exterior painting, plus drywall hanging, patching, and finishing, all from one team."
         />
 

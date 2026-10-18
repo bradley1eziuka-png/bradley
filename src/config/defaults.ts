@@ -54,13 +54,13 @@ export const DEFAULT_CONTENT = {
 } as const;
 
 export const DEFAULT_IMAGES = {
-  hero: "/images/hero.jpg",
-  interior: "/images/interior.jpg",
-  exterior: "/images/exterior.jpg",
-  galleryLivingRoom: "/images/gallery-living-room.jpg",
-  galleryExterior: "/images/gallery-exterior.jpg",
-  galleryKitchen: "/images/gallery-kitchen.jpg",
-  galleryBedroom: "/images/gallery-bedroom.jpg",
-  galleryTrim: "/images/gallery-trim.jpg",
-  trust: "/images/trust.jpg",
+  hero: "/images/hero.webp",
+  interior: "/images/interior.webp",
+  exterior: "/images/exterior.webp",
+  galleryLivingRoom: "/images/gallery-living-room.webp",
+  galleryExterior: "/images/gallery-exterior.webp",
+  galleryKitchen: "/images/gallery-kitchen.webp",
+  galleryBedroom: "/images/gallery-bedroom.webp",
+  galleryTrim: "/images/gallery-trim.webp",
+  trust: "/images/trust.webp",
 } as const;

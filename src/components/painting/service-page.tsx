@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/accordion";
 
 import { BUSINESS_PHONE, BUSINESS_PHONE_TEL } from "@/lib/site-config";
-import type { ServiceConfig } from "@/lib/services-data";
+import { SERVICES, type ServiceConfig } from "@/lib/services-data";
 import { SectionHeading } from "./section-heading";
 import { ctaButton } from "./buttons";
 
@@ -36,7 +36,7 @@ export function ServicePage({ service }: { service: ServiceConfig }) {
             {service.eyebrow}
           </p>
           <h1 className="font-display text-balance text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            {service.title}
+            {service.headline ?? service.title}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">
             {service.shortDescription}
@@ -98,8 +98,53 @@ export function ServicePage({ service }: { service: ServiceConfig }) {
         </div>
       </section>
 
-      {/* ── Benefits ─────────────────────────────────────────────────── */}
+      {/* ── What's included ──────────────────────────────────────────── */}
       <section className="section-pad bg-secondary/40">
+        <div className="mx-auto max-w-6xl px-6">
+          <SectionHeading
+            eyebrow="What's Included"
+            title={service.details.title}
+            description={service.details.description}
+          />
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:gap-8">
+            {service.details.items.map((item) => (
+              <div
+                key={item.title}
+                className="flex gap-5 rounded-2xl border border-border bg-card p-7 shadow-[0_2px_20px_-14px_rgba(0,0,0,0.14)]"
+              >
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary text-accent shadow-sm">
+                  <Check className="size-5" />
+                </span>
+                <div>
+                  <h3 className="font-display text-lg font-semibold tracking-tight text-primary">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-[0.9rem] leading-relaxed text-muted-foreground">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          {service.related.length > 0 && (
+            <ul className="mt-10 flex flex-col items-center gap-3 text-center text-[0.95rem] sm:gap-2">
+              {service.related.map((rel) => (
+                <li key={rel.key}>
+                  <a
+                    href={SERVICES[rel.key].path}
+                    className="font-semibold text-accent-deep underline-offset-4 transition-colors hover:underline"
+                  >
+                    {rel.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </section>
+
+      {/* ── Benefits ─────────────────────────────────────────────────── */}
+      <section className="section-pad bg-background">
         <div className="mx-auto max-w-6xl px-6">
           <SectionHeading
             eyebrow="Why It Matters"
@@ -128,7 +173,7 @@ export function ServicePage({ service }: { service: ServiceConfig }) {
       </section>
 
       {/* ── Process ──────────────────────────────────────────────────── */}
-      <section className="section-pad bg-background">
+      <section className="section-pad bg-secondary/40">
         <div className="mx-auto max-w-6xl px-6">
           <SectionHeading
             eyebrow="How It Works"
@@ -163,7 +208,7 @@ export function ServicePage({ service }: { service: ServiceConfig }) {
       </section>
 
       {/* ── Gallery ──────────────────────────────────────────────────── */}
-      <section className="section-pad bg-secondary/40">
+      <section className="section-pad bg-background">
         <div className="mx-auto max-w-6xl px-6">
           <SectionHeading
             eyebrow="Our Work"
@@ -202,7 +247,7 @@ export function ServicePage({ service }: { service: ServiceConfig }) {
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────────────────── */}
-      <section className="section-pad bg-background">
+      <section className="section-pad bg-secondary/40">
         <div className="mx-auto max-w-3xl px-6">
           <SectionHeading
             eyebrow="Questions & Answers"

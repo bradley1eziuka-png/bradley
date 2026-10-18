@@ -34,16 +34,23 @@ const REASONS = [
 const CARD_CLASS =
   "group flex h-full flex-col rounded-2xl border border-border bg-card p-7 shadow-[0_2px_20px_-14px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_20px_45px_-22px_rgba(0,0,0,0.25)]";
 
-function ReasonCard({ reason }: { reason: (typeof REASONS)[number] }) {
+function ReasonCard({
+  reason,
+  asHeading = true,
+}: {
+  reason: (typeof REASONS)[number];
+  asHeading?: boolean;
+}) {
   const Icon = reason.icon;
+  const Title = asHeading ? "h3" : "p";
   return (
     <div className={CARD_CLASS}>
       <span className="flex size-12 items-center justify-center rounded-xl bg-primary text-accent shadow-sm transition-colors group-hover:bg-accent group-hover:text-primary">
         <Icon className="size-6" />
       </span>
-      <h3 className="mt-5 font-display text-lg font-semibold tracking-tight text-primary">
+      <Title className="mt-5 font-display text-lg font-semibold tracking-tight text-primary">
         {reason.title}
-      </h3>
+      </Title>
       <p className="mt-3 text-[0.9rem] leading-relaxed text-muted-foreground">
         {reason.description}
       </p>
@@ -92,7 +99,7 @@ function MobileCarousel() {
         <div className="flex">
           {REASONS.map((reason) => (
             <div key={reason.title} className="min-w-0 flex-[0_0_100%] px-1">
-              <ReasonCard reason={reason} />
+              <ReasonCard reason={reason} asHeading={false} />
             </div>
           ))}
         </div>

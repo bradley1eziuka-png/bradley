@@ -11,10 +11,10 @@ import { Faq } from "@/components/painting/faq";
 import { FinalCta } from "@/components/painting/final-cta";
 import { ContactSection } from "@/components/painting/contact-section";
 import { Testimonials } from "@/components/painting/testimonials";
-import { HOME_DESCRIPTION, HOME_TITLE, pageHead } from "@/lib/seo";
+import { homePageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
-  head: () => pageHead({ title: HOME_TITLE, description: HOME_DESCRIPTION, path: "/" }),
+  head: () => homePageHead(),
   component: Index,
 });
 
