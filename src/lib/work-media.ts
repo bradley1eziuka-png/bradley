@@ -162,3 +162,29 @@ export const WORK_VIDEOS: WorkVideo[] = [
     title: "Walkaround video of a home with freshly painted pink siding and white trim",
   },
 ];
+
+// Customer video testimonials (converted from the owner-supplied screen
+// recordings; original audio preserved). Labels are neutral on purpose: no
+// names, quotes, or ratings are published until the customers approve them.
+export type TestimonialVideo = {
+  src: string;
+  poster: string;
+  width: number;
+  height: number;
+  label: string;
+};
+
+const TESTIMONIALS = "/videos/testimonials";
+
+export const TESTIMONIAL_VIDEOS: TestimonialVideo[] = [
+  { n: 1, width: 960, height: 880 },
+  { n: 2, width: 640, height: 960 },
+  { n: 3, width: 808, height: 1280 },
+  { n: 4, width: 752, height: 960 },
+].map(({ n, width, height }) => ({
+  src: `${TESTIMONIALS}/customer-testimonial-${n}.mp4`,
+  poster: `${TESTIMONIALS}/customer-testimonial-${n}-poster.webp`,
+  width,
+  height,
+  label: `Customer Testimonial ${n}`,
+}));

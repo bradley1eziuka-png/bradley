@@ -28,7 +28,7 @@ export function SectionHeading({
           )}
         >
           <span className="h-px w-7 bg-accent" />
-          <span className="text-accent-deep">{eyebrow}</span>
+          <span className={light ? "text-accent" : "text-accent-deep"}>{eyebrow}</span>
           {centered && <span className="h-px w-7 bg-accent" />}
         </div>
       )}
