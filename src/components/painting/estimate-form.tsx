@@ -64,7 +64,7 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
   }
 
   const fieldBase =
-    "h-12 w-full rounded-lg border bg-white px-4 text-base text-foreground transition-colors placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent/35";
+    "h-11 w-full rounded-lg border bg-white px-4 text-base text-foreground transition-colors placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent/35";
   const fieldOk = "border-border focus:border-accent";
   const fieldErr = "border-destructive focus:border-destructive";
 
@@ -72,15 +72,15 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
     <div
       id={id}
       className={
-        "rounded-3xl border border-border bg-white p-6 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.5)] sm:p-7" +
+        "rounded-3xl border border-border bg-white p-5 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.5)] sm:p-6" +
         (className ? ` ${className}` : "")
       }
     >
-      <div className="mb-5">
+      <div className="mb-4">
         <span className="inline-flex items-center gap-2 rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-accent-deep">
           Free Estimate
         </span>
-        <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-primary">
+        <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-primary">
           Get An Estimate
         </h2>
         <p className="mt-2 text-[0.95rem] leading-relaxed text-muted-foreground">
@@ -142,7 +142,7 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
           method="POST"
           onSubmit={onSubmit}
           noValidate
-          className="relative space-y-3.5"
+          className="relative space-y-3"
         >
           <input type="hidden" name="_subject" value={FORM_SUBJECT} />
           {/* Honeypot: hidden from people, tempting to bots. */}
@@ -174,103 +174,111 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
             )}
           </div>
 
-          <div>
-            <label htmlFor="est-phone" className="mb-1.5 block text-sm font-semibold text-primary">
-              Phone Number <span className="text-accent-deep">*</span>
-            </label>
-            <input
-              id="est-phone"
-              name="phone"
-              type="tel"
-              required
-              inputMode="tel"
-              autoComplete="tel"
-              value={values.phone}
-              onChange={(e) => update("phone", e.target.value)}
-              placeholder="(555) 555-5555"
-              className={`${fieldBase} ${errors.phone ? fieldErr : fieldOk}`}
-              aria-invalid={!!errors.phone}
-            />
-            {errors.phone && (
-              <p className="mt-1.5 text-xs font-medium text-destructive">{errors.phone}</p>
-            )}
-          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label
+                htmlFor="est-phone"
+                className="mb-1.5 block text-sm font-semibold text-primary"
+              >
+                Phone Number <span className="text-accent-deep">*</span>
+              </label>
+              <input
+                id="est-phone"
+                name="phone"
+                type="tel"
+                required
+                inputMode="tel"
+                autoComplete="tel"
+                value={values.phone}
+                onChange={(e) => update("phone", e.target.value)}
+                placeholder="(555) 555-5555"
+                className={`${fieldBase} ${errors.phone ? fieldErr : fieldOk}`}
+                aria-invalid={!!errors.phone}
+              />
+              {errors.phone && (
+                <p className="mt-1.5 text-xs font-medium text-destructive">{errors.phone}</p>
+              )}
+            </div>
 
-          <div>
-            <label
-              htmlFor="est-cityzip"
-              className="mb-1.5 block text-sm font-semibold text-primary"
-            >
-              City or ZIP <span className="text-accent-deep">*</span>
-            </label>
-            <input
-              id="est-cityzip"
-              name="city_zip"
-              type="text"
-              required
-              autoComplete="postal-code"
-              value={values.cityZip}
-              onChange={(e) => update("cityZip", e.target.value)}
-              placeholder="Kalamazoo or 49001"
-              className={`${fieldBase} ${errors.cityZip ? fieldErr : fieldOk}`}
-              aria-invalid={!!errors.cityZip}
-            />
-            {errors.cityZip && (
-              <p className="mt-1.5 text-xs font-medium text-destructive">{errors.cityZip}</p>
-            )}
+            <div>
+              <label
+                htmlFor="est-cityzip"
+                className="mb-1.5 block text-sm font-semibold text-primary"
+              >
+                City or ZIP <span className="text-accent-deep">*</span>
+              </label>
+              <input
+                id="est-cityzip"
+                name="city_zip"
+                type="text"
+                required
+                autoComplete="postal-code"
+                value={values.cityZip}
+                onChange={(e) => update("cityZip", e.target.value)}
+                placeholder="Kalamazoo or 49001"
+                className={`${fieldBase} ${errors.cityZip ? fieldErr : fieldOk}`}
+                aria-invalid={!!errors.cityZip}
+              />
+              {errors.cityZip && (
+                <p className="mt-1.5 text-xs font-medium text-destructive">{errors.cityZip}</p>
+              )}
+            </div>
           </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label
+                htmlFor="est-email"
+                className="mb-1.5 block text-sm font-semibold text-primary"
+              >
+                Email (optional)
+              </label>
+              <input
+                id="est-email"
+                name="email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                value={values.email}
+                onChange={(e) => update("email", e.target.value)}
+                placeholder="you@example.com"
+                className={`${fieldBase} ${errors.email ? fieldErr : fieldOk}`}
+                aria-invalid={!!errors.email}
+              />
+              {errors.email && (
+                <p className="mt-1.5 text-xs font-medium text-destructive">{errors.email}</p>
+              )}
+            </div>
 
-          <div>
-            <label htmlFor="est-email" className="mb-1.5 block text-sm font-semibold text-primary">
-              Email (optional)
-            </label>
-            <input
-              id="est-email"
-              name="email"
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              value={values.email}
-              onChange={(e) => update("email", e.target.value)}
-              placeholder="you@example.com"
-              className={`${fieldBase} ${errors.email ? fieldErr : fieldOk}`}
-              aria-invalid={!!errors.email}
-            />
-            {errors.email && (
-              <p className="mt-1.5 text-xs font-medium text-destructive">{errors.email}</p>
-            )}
-          </div>
-
-          <div>
-            <label
-              htmlFor="est-service"
-              className="mb-1.5 block text-sm font-semibold text-primary"
-            >
-              Service Needed <span className="text-accent-deep">*</span>
-            </label>
-            <select
-              id="est-service"
-              name="project_type"
-              required
-              value={values.service}
-              onChange={(e) => update("service", e.target.value)}
-              className={`${fieldBase} ${errors.service ? fieldErr : fieldOk} cursor-pointer`}
-              aria-invalid={!!errors.service}
-            >
-              <option value="" disabled>
-                Select a service…
-              </option>
-              {SERVICE_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
+            <div>
+              <label
+                htmlFor="est-service"
+                className="mb-1.5 block text-sm font-semibold text-primary"
+              >
+                Service Needed <span className="text-accent-deep">*</span>
+              </label>
+              <select
+                id="est-service"
+                name="project_type"
+                required
+                value={values.service}
+                onChange={(e) => update("service", e.target.value)}
+                className={`${fieldBase} ${errors.service ? fieldErr : fieldOk} cursor-pointer`}
+                aria-invalid={!!errors.service}
+              >
+                <option value="" disabled>
+                  Select a service…
                 </option>
-              ))}
-            </select>
-            {errors.service && (
-              <p className="mt-1.5 text-xs font-medium text-destructive">{errors.service}</p>
-            )}
+                {SERVICE_OPTIONS.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+              {errors.service && (
+                <p className="mt-1.5 text-xs font-medium text-destructive">{errors.service}</p>
+              )}
+            </div>
           </div>
-
           <div>
             <label
               htmlFor="est-details"
@@ -281,7 +289,7 @@ export function EstimateFormCard({ id, className }: { id?: string; className?: s
             <textarea
               id="est-details"
               name="message"
-              rows={4}
+              rows={3}
               value={values.details}
               onChange={(e) => update("details", e.target.value)}
               placeholder="Tell us about the space, what you'd like painted, and any timing you have in mind."

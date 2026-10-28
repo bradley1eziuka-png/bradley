@@ -26,11 +26,11 @@ export function Hero() {
         <div className="absolute inset-0 bg-linear-to-r from-primary/82 via-primary/48 to-primary/22" />
       </div>
 
-      <div className="mx-auto w-full max-w-7xl px-6 py-28 sm:py-32 lg:py-36">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+      <div className="mx-auto w-full max-w-7xl px-6 py-28 sm:py-32 lg:py-24">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-14">
           {/* Left column ~55% */}
           <div className="max-w-xl">
-            <h1 className="font-display text-balance text-5xl font-extrabold leading-[1.05] tracking-tight text-white [word-break:break-word] sm:text-6xl lg:text-[4.5rem]">
+            <h1 className="font-display text-balance text-5xl font-extrabold leading-[1.05] tracking-tight text-white [word-break:break-word] sm:text-6xl lg:text-[4rem]">
               <span className="mb-6 flex w-fit items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase leading-normal tracking-[0.18em] text-white backdrop-blur-sm">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {COPY.hero.eyebrow}
@@ -42,11 +42,11 @@ export function Hero() {
               {COPY.hero.tagline}
             </p>
 
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/85 sm:text-xl">
+            <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/85 sm:text-xl">
               {COPY.hero.subheadline}
             </p>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
               <a href="#services" className={ctaButton({ variant: "accent", size: "lg" })}>
                 Explore Our Services
                 <ArrowRight className="size-4" />
@@ -60,7 +60,7 @@ export function Hero() {
               </a>
             </div>
 
-            <p className="mt-7 flex items-center gap-2.5 text-sm font-medium text-white/70">
+            <p className="mt-6 flex items-center gap-2.5 text-sm font-medium text-white/70">
               <Phone className="size-4 text-accent" />
               <span>Or call us at</span>
               <a
