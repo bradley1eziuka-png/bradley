@@ -10,7 +10,7 @@ import { EstimateFormCard } from "./estimate-form";
 // the order: headline/description → CTAs → form.
 export function Hero() {
   return (
-    <section id="top" className="relative isolate flex min-h-[92vh] items-center overflow-hidden">
+    <section id="top" className="relative isolate flex min-h-svh items-center overflow-hidden">
       <div className="absolute inset-0 -z-10">
         <img
           src={IMAGES.hero}
@@ -26,7 +26,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-linear-to-r from-primary/82 via-primary/48 to-primary/22" />
       </div>
 
-      <div className="mx-auto w-full max-w-7xl px-6 py-28 sm:py-32 lg:py-24">
+      <div className="mx-auto w-full max-w-7xl px-6 py-28 sm:py-32 lg:pb-32 lg:pt-24">
         <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-14">
           {/* Left column ~55% */}
           <div className="max-w-xl">
